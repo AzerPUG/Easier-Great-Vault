@@ -1,6 +1,6 @@
 local GlobalAddonName, AIU = ...
 
-local AZPIUGreatVaultVersion = 14
+local AZPIUGreatVaultVersion = 3
 local dash = " - "
 local name = "InstanceUtility" .. dash .. "GreatVault"
 local nameFull = ("AzerPUG " .. name)
@@ -15,7 +15,26 @@ function AZP.IU.VersionControl:GreatVault()
 end
 
 function AZP.IU.OnLoad:GreatVault(self)
-    ModuleStats["Frames"]["GreatVault"]:SetSize(110, 150)
+    ModuleStats["Frames"]["GreatVault"]:SetSize(150, 50)
+    addonMain:ChangeOptionsText()
+
+    local AZPGVButton = CreateFrame("Button", nil, ModuleStats["Frames"]["GreatVault"], "UIPanelButtonTemplate")
+    AZPGVButton.contentText = AZPGVButton:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+    AZPGVButton.contentText:SetText("Open Great Vault!")
+    AZPGVButton:SetWidth("100")
+    AZPGVButton:SetHeight("25")
+    AZPGVButton.contentText:SetWidth("100")
+    AZPGVButton.contentText:SetHeight("15")
+    AZPGVButton:SetPoint("TOPLEFT", 25, -10)
+    AZPGVButton.contentText:SetPoint("CENTER", 0, -1)
+    AZPGVButton:SetScript("OnClick", function()
+        LoadAddOn("Blizzard_WeeklyRewards")
+        if WeeklyRewardsFrame:IsShown() then
+            WeeklyRewardsFrame:Hide()
+        else
+            WeeklyRewardsFrame:Show()
+        end
+    end )
 end
 
 function AZP.IU.OnEvent:GreatVault(event, ...)
@@ -32,4 +51,13 @@ function addonMain:ChangeOptionsText()
     GreatVaultSubPanelHeader:SetWidth(GreatVaultSubPanel:GetWidth())
     GreatVaultSubPanelHeader:SetHeight(GreatVaultSubPanel:GetHeight())
     GreatVaultSubPanelHeader:SetPoint("TOP", 0, -10)
+
+    local GreatVaultSubPanelText = GreatVaultSubPanel:CreateFontString("GreatVaultSubPanelText", "ARTWORK", "GameFontNormalLarge")
+    GreatVaultSubPanelText:SetWidth(GreatVaultSubPanel:GetWidth())
+    GreatVaultSubPanelText:SetHeight(GreatVaultSubPanel:GetHeight())
+    GreatVaultSubPanelText:SetPoint("TOPLEFT", 0, -50)
+    GreatVaultSubPanelText:SetText(
+        "AzerPUG-GameUtility-GreatVault does not have options yet.\n" ..
+        "For feature requests visit our Discord Server!"
+    )
 end
