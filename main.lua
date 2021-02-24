@@ -1,6 +1,6 @@
 local GlobalAddonName, AIU = ...
 
-local AZPIUGreatVaultVersion = 3
+local AZPIUGreatVaultVersion = 4
 local dash = " - "
 local name = "InstanceUtility" .. dash .. "GreatVault"
 local nameFull = ("AzerPUG " .. name)
@@ -35,6 +35,30 @@ function AZP.IU.OnLoad:GreatVault(self)
             WeeklyRewardsFrame:Show()
         end
     end )
+
+    local AZPGVCovButton
+
+    AZP.AddonHelper:DelayedExecution(10, 
+    function()  
+        AZPGVCovButton = CreateFrame("Button", nil, GarrisonLandingPage, "UIPanelButtonTemplate")
+        AZPGVCovButton.contentText = AZPGVCovButton:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
+        AZPGVCovButton.contentText:SetText("Great Vault!")
+        AZPGVCovButton:SetWidth("75")
+        AZPGVCovButton:SetHeight("25")
+        AZPGVCovButton.contentText:SetWidth("75")
+        AZPGVCovButton.contentText:SetHeight("25")
+        AZPGVCovButton:SetPoint("TOPLEFT", 100, -10)
+        AZPGVCovButton.contentText:SetPoint("CENTER", 0, -1)
+        AZPGVCovButton:SetScript("OnClick",
+        function()
+            LoadAddOn("Blizzard_WeeklyRewards")
+            if WeeklyRewardsFrame:IsShown() then
+                WeeklyRewardsFrame:Hide()
+            else
+                WeeklyRewardsFrame:Show()
+            end
+        end )
+    end)
 end
 
 function AZP.IU.OnEvent:GreatVault(event, ...)
