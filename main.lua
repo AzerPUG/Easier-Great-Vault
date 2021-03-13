@@ -1,6 +1,6 @@
 local GlobalAddonName, AIU = ...
 
-local AZPIUGreatVaultVersion = 4
+local AZPIUGreatVaultVersion = 5
 local dash = " - "
 local name = "InstanceUtility" .. dash .. "GreatVault"
 local nameFull = ("AzerPUG " .. name)
