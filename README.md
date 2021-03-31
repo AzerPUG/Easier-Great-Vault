@@ -13,7 +13,7 @@
 [![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/PayPal%20Panel%20Small.png "")](https://www.paypal.com/donate?hosted_button_id=V4M8A5PPJWZLE "")
 
 # Description and Features
-***Description and Features Here*** 
+AzerPUG's Easier Great Vault adds the ability to open the Great Vault from anywhere. Althought it is impossible for an addon to claim an item from the great vault, unless you are located right next to it, you can check a lot of information about how much M+, Raid Bosses or PvP you have done for the week. The button to open the Great Vault is located in the Covenant Window!
 
 # Bugs, Errors, Glitches and Requests.
 If you find any of the above, please do not hessitate to create a GitHub Issue here: https://github.com/AzerPUG/Easier-Great-Vault/issues  
