@@ -8,23 +8,21 @@ AZP.VersionControl.EasierGreatVault = 5
 AZP.EasierGreatVault = {}
 
 local dash = " - "
-local name = "InstanceUtility" .. dash .. "GreatVault"
+local name = "Easier GreatVault"
 local nameFull = ("AzerPUG " .. name)
 local promo = (nameFull .. dash ..  AZPIUGreatVaultVersion)
 
-local addonMain = LibStub("AceAddon-3.0"):NewAddon("InstanceUtility-GreatVault", "AceConsole-3.0")
-
 local ModuleStats = AZP.IU.ModuleStats
 
-function AZP.IU.VersionControl:GreatVault()
+function AZP.VersionControl:EasierGreatVault()
     return AZPIUGreatVaultVersion
 end
 
-function AZP.IU.OnLoad:GreatVault(self)
-    ModuleStats["Frames"]["GreatVault"]:SetSize(150, 50)
+function AZP.OnLoad:EasierGreatVault(self)
+    ModuleStats["Frames"]["EasierGreatVault"]:SetSize(150, 50)
     addonMain:ChangeOptionsText()
 
-    local AZPGVButton = CreateFrame("Button", nil, ModuleStats["Frames"]["GreatVault"], "UIPanelButtonTemplate")
+    local AZPGVButton = CreateFrame("Button", nil, ModuleStats["Frames"]["EasierGreatVault"], "UIPanelButtonTemplate")
     AZPGVButton.contentText = AZPGVButton:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
     AZPGVButton.contentText:SetText("Open Great Vault!")
     AZPGVButton:SetWidth("100")
@@ -67,10 +65,10 @@ function AZP.IU.OnLoad:GreatVault(self)
     end)
 end
 
-function AZP.IU.OnEvent:GreatVault(event, ...)
+function AZP.OnEvent:EasierGreatVault(event, ...)
 end
 
-function addonMain:ChangeOptionsText()
+function AZP.EasierGreatVault:ChangeOptionsText()
     GreatVaultSubPanelPHTitle:Hide()
     GreatVaultSubPanelPHText:Hide()
     GreatVaultSubPanelPHTitle:SetParent(nil)
@@ -87,7 +85,7 @@ function addonMain:ChangeOptionsText()
     GreatVaultSubPanelText:SetHeight(GreatVaultSubPanel:GetHeight())
     GreatVaultSubPanelText:SetPoint("TOPLEFT", 0, -50)
     GreatVaultSubPanelText:SetText(
-        "AzerPUG-GameUtility-GreatVault does not have options yet.\n" ..
+        "AzerPUG's Easier GreatVault' does not have options yet.\n" ..
         "For feature requests visit our Discord Server!"
     )
 end
