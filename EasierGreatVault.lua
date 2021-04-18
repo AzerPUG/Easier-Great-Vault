@@ -39,27 +39,11 @@ function AZP.EasierGreatVault:OnLoadSelf()
 end
 
 function AZP.EasierGreatVault:OnLoadCore()
-    AZP.Core.ModuleStats["Frames"]["EasierGreatVault"]:SetSize(150, 50)
+    AZP.Core.AddOns.EGV.MainFrame:SetSize(150, 50)
     AZP.Core:RegisterEvents("ADDON_LOADED", AZP.EasierGreatVault.eventOnOtherAddonLoaded)
-    AZP.OptionsPanels:Generic("Easier Great Vault", optionHeader, AZP.EasierGreatVault.FillOptionsPanel)
-
-    local AZPGVButton = CreateFrame("Button", nil, AZP.Core.ModuleStats["Frames"]["EasierGreatVault"], "UIPanelButtonTemplate")
-    AZPGVButton.contentText = AZPGVButton:CreateFontString(nil, "ARTWORK", "GameFontNormalSmall")
-    AZPGVButton.contentText:SetText("Open Great Vault!")
-    AZPGVButton:SetWidth("100")
-    AZPGVButton:SetHeight("25")
-    AZPGVButton.contentText:SetWidth("100")
-    AZPGVButton.contentText:SetHeight("15")
-    AZPGVButton:SetPoint("TOPLEFT", 25, -10)
-    AZPGVButton.contentText:SetPoint("CENTER", 0, -1)
-    AZPGVButton:SetScript("OnClick", function()
-        LoadAddOn("Blizzard_WeeklyRewards")
-        if WeeklyRewardsFrame:IsShown() then
-            WeeklyRewardsFrame:Hide()
-        else
-            WeeklyRewardsFrame:Show()
-        end
-    end )
+    AZP.OptionsPanels:Generic("Easier Great Vault", optionHeader, function (frame)
+        AZP.EasierGreatVault:FillOptionsPanel(frame)
+    end)
 end
 
 function AZP.EasierGreatVault.eventOnOtherAddonLoaded(addon)
@@ -94,7 +78,7 @@ function AZP.OnEvent.EasierGreatVault(self, event, ...)
     end
 end
 
-function AZP.EasierGreatVault.FillOptionsPanel(frameToFill)
+function AZP.EasierGreatVault:FillOptionsPanel(frameToFill)
     -- GreatVaultSubPanelPHTitle:Hide()
     -- GreatVaultSubPanelPHText:Hide()
     -- GreatVaultSubPanelPHTitle:SetParent(nil)
