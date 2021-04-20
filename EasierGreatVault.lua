@@ -7,18 +7,43 @@ if AZP.OnEvent == nil then AZP.OnEvent = {} end
 AZP.VersionControl.EasierGreatVault = 5
 AZP.EasierGreatVault = {}
 
-local dash = " - "
-local name = "Easier GreatVault"
-local nameFull = ("AzerPUG " .. name)
-local promo = (nameFull .. dash ..  AZP.VersionControl.EasierGreatVault)
+local EventFrame, UpdateFrame = nil, nil
+local HaveShowedUpdateNotification = false
 local optionHeader = "|cFF00FFFFEasier GreatVault|r"
 local AZPEGVSelfOptionPanel = nil
 
-
 function AZP.EasierGreatVault:OnLoadSelf()
-    local eventFrame = CreateFrame("Frame")
-    eventFrame:SetScript("OnEvent", AZP.OnEvent.EasierGreatVault)
-    eventFrame:RegisterEvent("ADDON_LOADED")
+    C_ChatInfo.RegisterAddonMessagePrefix("AZPVERSIONS")
+    EventFrame = CreateFrame("Frame")
+    EventFrame:SetScript("OnEvent", AZP.OnEvent.EasierGreatVault)
+    EventFrame:RegisterEvent("ADDON_LOADED")
+    EventFrame:RegisterEvent("CHAT_MSG_ADDON")
+
+    UpdateFrame = CreateFrame("Frame", nil, UIParent, "BackdropTemplate")
+    UpdateFrame:SetPoint("CENTER", 0, 250)
+    UpdateFrame:SetSize(400, 200)
+    UpdateFrame:SetBackdrop({
+        bgFile = "Interface/Tooltips/UI-Tooltip-Background",
+        edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
+        edgeSize = 12,
+        insets = { left = 1, right = 1, top = 1, bottom = 1 },
+    })
+    UpdateFrame:SetBackdropColor(0.25, 0.25, 0.25, 0.80)
+    UpdateFrame.header = UpdateFrame:CreateFontString("UpdateFrame", "ARTWORK", "GameFontNormalHuge")
+    UpdateFrame.header:SetPoint("TOP", 0, -10)
+    UpdateFrame.header:SetText("|cFFFF0000AzerPUG's Easier GreatVault is out of date!|r")
+
+    UpdateFrame.text = UpdateFrame:CreateFontString("UpdateFrame", "ARTWORK", "GameFontNormalLarge")
+    UpdateFrame.text:SetPoint("TOP", 0, -40)
+    UpdateFrame.text:SetText("Error!")
+
+    UpdateFrame:Hide()
+
+    local UpdateFrameCloseButton = CreateFrame("Button", nil, UpdateFrame, "UIPanelCloseButton")
+    UpdateFrameCloseButton:SetWidth(25)
+    UpdateFrameCloseButton:SetHeight(25)
+    UpdateFrameCloseButton:SetPoint("TOPRIGHT", UpdateFrame, "TOPRIGHT", 2, 2)
+    UpdateFrameCloseButton:SetScript("OnClick", function() UpdateFrame:Hide() end )
 
     AZPEGVSelfOptionPanel = CreateFrame("FRAME", nil)
     AZPEGVSelfOptionPanel.name = optionHeader
@@ -46,7 +71,7 @@ function AZP.EasierGreatVault:OnLoadCore()
     end)
 end
 
-function AZP.EasierGreatVault.eventOnOtherAddonLoaded(addon)
+function AZP.EasierGreatVault:eventAddonLoaded(addon)
     if addon == "Blizzard_GarrisonUI" or IsAddOnLoaded("Blizzard_GarrisonUI") then
         if GarrisonLandingPage ~= nil and GarrisonLandingPage.AZPGVCovButton == nil then
             GarrisonLandingPage.AZPGVCovButton = CreateFrame("Button", nil, GarrisonLandingPage, "UIPanelButtonTemplate")
@@ -71,33 +96,77 @@ function AZP.EasierGreatVault.eventOnOtherAddonLoaded(addon)
     end
 end
 
+function AZP.EasierGreatVault:DelayedExecution(delayTime, delayedFunction)
+    local frame = CreateFrame("Frame")
+    frame.start_time = GetServerTime()
+    frame:SetScript("OnUpdate",
+        function(self)
+            if GetServerTime() - self.start_time > delayTime then
+                delayedFunction()
+                self:SetScript("OnUpdate", nil)
+                self:Hide()
+            end
+        end
+    )
+    frame:Show()
+end
 
-function AZP.OnEvent.EasierGreatVault(self, event, ...)
-    if event == "ADDON_LOADED" then
-        AZP.EasierGreatVault.eventOnOtherAddonLoaded(...)
+function AZP.EasierGreatVault:ShareVersion()    -- Change DelayedExecution to native WoW Function.
+    local versionString = string.format("|TT:%d|", AZP.VersionControl.EasierGreatVault)
+    AZP.EasierGreatVault:DelayedExecution(10, function() 
+        if IsInGroup() then
+            if IsInRaid() then
+                C_ChatInfo.SendAddonMessage("AZPVERSIONS", versionString ,"RAID", 1)
+            else
+                C_ChatInfo.SendAddonMessage("AZPVERSIONS", versionString ,"PARTY", 1)
+            end
+        end
+        if IsInGuild() then
+            C_ChatInfo.SendAddonMessage("AZPVERSIONS", versionString ,"GUILD", 1)
+        end
+    end)
+end
+
+function AZP.EasierGreatVault:ReceiveVersion(version)
+    if version > AZP.VersionControl.EasierGreatVault then
+        if (not HaveShowedUpdateNotification) then
+            HaveShowedUpdateNotification = true
+            UpdateFrame:Show()
+            UpdateFrame.text:SetText(
+                "Please download the new version through the CurseForge app.\n" ..
+                "Or use the CurseForge website to download it manually!\n\n" .. 
+                "Newer Version: v" .. version .. "\n" .. 
+                "Your version: v" .. AZP.VersionControl.EasierGreatVault
+            )
+        end
+    end
+end
+
+function AZP.EasierGreatVault:GetSpecificAddonVersion(versionString, addonWanted)
+    local pattern = "|([A-Z]+):([0-9]+)|"
+    local index = 1
+    while index < #versionString do
+        local _, endPos = string.find(versionString, pattern, index)
+        local addon, version = string.match(versionString, pattern, index)
+        index = endPos + 1
+        if addon == addonWanted then
+            return tonumber(version)
+        end
+    end
+end
+
+function AZP.OnEvent:EasierGreatVault(self, event, ...)
+    if event == "CHAT_MSG_ADDON" then
+        local prefix, payload, _, sender = ...
+        if prefix == "AZPVERSIONS" then
+            AZP.EasierGreatVault:ReceiveVersion(AZP.EasierGreatVault:GetSpecificAddonVersion(payload, "EGV"))
+        end
+    elseif event == "ADDON_LOADED" then
+        AZP.EasierGreatVault.eventAddonLoaded(...)
     end
 end
 
 function AZP.EasierGreatVault:FillOptionsPanel(frameToFill)
-    -- GreatVaultSubPanelPHTitle:Hide()
-    -- GreatVaultSubPanelPHText:Hide()
-    -- GreatVaultSubPanelPHTitle:SetParent(nil)
-    -- GreatVaultSubPanelPHText:SetParent(nil)
-
-    -- local GreatVaultSubPanelHeader = GreatVaultSubPanel:CreateFontString("GreatVaultSubPanelHeader", "ARTWORK", "GameFontNormalHuge")
-    -- GreatVaultSubPanelHeader:SetText(promo)
-    -- GreatVaultSubPanelHeader:SetWidth(GreatVaultSubPanel:GetWidth())
-    -- GreatVaultSubPanelHeader:SetHeight(GreatVaultSubPanel:GetHeight())
-    -- GreatVaultSubPanelHeader:SetPoint("TOP", 0, -10)
-
-    -- local GreatVaultSubPanelText = GreatVaultSubPanel:CreateFontString("GreatVaultSubPanelText", "ARTWORK", "GameFontNormalLarge")
-    -- GreatVaultSubPanelText:SetWidth(GreatVaultSubPanel:GetWidth())
-    -- GreatVaultSubPanelText:SetHeight(GreatVaultSubPanel:GetHeight())
-    -- GreatVaultSubPanelText:SetPoint("TOPLEFT", 0, -50)
-    -- GreatVaultSubPanelText:SetText(
-    --     "AzerPUG's Easier GreatVault' does not have options yet.\n" ..
-    --     "For feature requests visit our Discord Server!"
-    -- )
 end
 
 if not IsAddOnLoaded("AzerPUG's Core") then
