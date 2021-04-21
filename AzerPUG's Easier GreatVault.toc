@@ -5,4 +5,5 @@
 ## Notes: Utility for Instances (Raids and Dungeons)!
 ## Version: SL 9.0.5 (For actual addon version, check main.lua)
 
+SlashCommands.lua
 EasierGreatVault.lua
