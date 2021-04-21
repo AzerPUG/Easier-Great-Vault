@@ -66,7 +66,7 @@ end
 function AZP.EasierGreatVault:OnLoadCore()
     AZP.Core.AddOns.EGV.MainFrame:SetSize(150, 50)
     AZP.Core:RegisterEvents("ADDON_LOADED", AZP.EasierGreatVault.eventOnOtherAddonLoaded)
-    AZP.OptionsPanels:Generic("Easier Great Vault", optionHeader, function (frame)
+    AZP.OptionsPanels:Generic("Easier Great Vault", optionHeader, function(frame)
         AZP.EasierGreatVault:FillOptionsPanel(frame)
     end)
 end
@@ -172,3 +172,12 @@ end
 if not IsAddOnLoaded("AzerPUG's Core") then
     AZP.EasierGreatVault:OnLoadSelf()
 end
+
+AZP.SlashCommands["EGV"] = function()
+    LoadAddOn("Blizzard_WeeklyRewards")
+    if WeeklyRewardsFrame ~= nil then WeeklyRewardsFrame:Show() end
+end
+
+AZP.SlashCommands["egv"] = AZP.SlashCommands["EGV"]
+AZP.SlashCommands["vault"] = AZP.SlashCommands["EGV"]
+AZP.SlashCommands["easier great vault"] = AZP.SlashCommands["EGV"]
