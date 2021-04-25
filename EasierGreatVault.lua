@@ -4,7 +4,7 @@ if AZP.OnLoad == nil then AZP.OnLoad = {} end
 if AZP.OnEvent == nil then AZP.OnEvent = {} end
 if AZP.OnEvent == nil then AZP.OnEvent = {} end
 
-AZP.VersionControl.EasierGreatVault = 5
+AZP.VersionControl["EasierGreatVault"] = 5
 AZP.EasierGreatVault = {}
 
 local EventFrame, UpdateFrame = nil, nil
@@ -65,7 +65,8 @@ end
 
 function AZP.EasierGreatVault:OnLoadCore()
     AZP.Core.AddOns.EGV.MainFrame:SetSize(150, 50)
-    AZP.Core:RegisterEvents("ADDON_LOADED", AZP.EasierGreatVault.eventOnOtherAddonLoaded)
+    AZP.Core:RegisterEvents("ADDON_LOADED", function(...) AZP.EasierGreatVault:eventOnOtherAddonLoaded(...) end)
+    AZP.OptionsPanels:RemovePanel("Easier Great Vault")
     AZP.OptionsPanels:Generic("Easier Great Vault", optionHeader, function(frame)
         AZP.EasierGreatVault:FillOptionsPanel(frame)
     end)
@@ -112,7 +113,7 @@ function AZP.EasierGreatVault:DelayedExecution(delayTime, delayedFunction)
 end
 
 function AZP.EasierGreatVault:ShareVersion()    -- Change DelayedExecution to native WoW Function.
-    local versionString = string.format("|TT:%d|", AZP.VersionControl.EasierGreatVault)
+    local versionString = string.format("|TT:%d|", AZP.VersionControl["EasierGreatVault"])
     AZP.EasierGreatVault:DelayedExecution(10, function() 
         if IsInGroup() then
             if IsInRaid() then
@@ -128,7 +129,7 @@ function AZP.EasierGreatVault:ShareVersion()    -- Change DelayedExecution to na
 end
 
 function AZP.EasierGreatVault:ReceiveVersion(version)
-    if version > AZP.VersionControl.EasierGreatVault then
+    if version > AZP.VersionControl["EasierGreatVault"] then
         if (not HaveShowedUpdateNotification) then
             HaveShowedUpdateNotification = true
             UpdateFrame:Show()
@@ -136,7 +137,7 @@ function AZP.EasierGreatVault:ReceiveVersion(version)
                 "Please download the new version through the CurseForge app.\n" ..
                 "Or use the CurseForge website to download it manually!\n\n" .. 
                 "Newer Version: v" .. version .. "\n" .. 
-                "Your version: v" .. AZP.VersionControl.EasierGreatVault
+                "Your version: v" .. AZP.VersionControl["EasierGreatVault"]
             )
         end
     end
