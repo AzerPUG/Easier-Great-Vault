@@ -16,6 +16,8 @@ function AZP.EasierGreatVault:OnLoadSelf()
     EventFrame:SetScript("OnEvent", function(...) AZP.EasierGreatVault:OnEvent(...) end)
     EventFrame:RegisterEvent("ADDON_LOADED")
     EventFrame:RegisterEvent("CHAT_MSG_ADDON")
+    EventFrame:RegisterEvent("CHAT_MSG_ADDON")
+    EventFrame:RegisterEvent("GROUP_ROSTER_UPDATE")
 
     UpdateFrame = CreateFrame("Frame", nil, UIParent, "BackdropTemplate")
     UpdateFrame:SetPoint("CENTER", 0, 250)
@@ -112,7 +114,7 @@ end
 
 function AZP.EasierGreatVault:ShareVersion()    -- Change DelayedExecution to native WoW Function.
     local versionString = string.format("|EGV:%d|", AZP.VersionControl["Easier GreatVault"])
-    AZP.EasierGreatVault:DelayedExecution(10, function() 
+    AZP.EasierGreatVault:DelayedExecution(10, function()
         if IsInGroup() then
             if IsInRaid() then
                 C_ChatInfo.SendAddonMessage("AZPVERSIONS", versionString ,"RAID", 1)
@@ -166,6 +168,8 @@ function AZP.EasierGreatVault:OnEvent(self, event, ...)
         end
     elseif event == "ADDON_LOADED" then
         AZP.EasierGreatVault.eventAddonLoaded(...)
+    elseif event == "GROUP_ROSTER_UPDATE" then
+        AZP.EasierGreatVault:ShareVersion()
     end
 end
 
