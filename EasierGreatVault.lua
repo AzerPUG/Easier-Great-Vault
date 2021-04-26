@@ -63,7 +63,7 @@ end
 
 function AZP.EasierGreatVault:OnLoadCore()
     AZP.Core.AddOns.EGV.MainFrame:SetSize(150, 50)
-    AZP.Core:RegisterEvents("ADDON_LOADED", AZP.EasierGreatVault.eventOnOtherAddonLoaded)
+    AZP.Core:RegisterEvents("ADDON_LOADED", function (...) AZP.EasierGreatVault:eventAddonLoaded(...) end)
     AZP.OptionsPanels:RemovePanel("Easier GreatVault")
     AZP.OptionsPanels:Generic("Easier GreatVault", optionHeader, function(frame)
         AZP.EasierGreatVault:FillOptionsPanel(frame)
