@@ -172,7 +172,7 @@ end
 function AZP.EasierGreatVault:FillOptionsPanel(frameToFill)
 end
 
-if not IsAddOnLoaded("AzerPUG's Core") then
+if not IsAddOnLoaded("AzerPUGsCore") then
     AZP.EasierGreatVault:OnLoadSelf()
 end
 
