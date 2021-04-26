@@ -1,10 +1,8 @@
 if AZP == nil then AZP = {} end
 if AZP.VersionControl == nil then AZP.VersionControl = {} end
 if AZP.OnLoad == nil then AZP.OnLoad = {} end
-if AZP.OnEvent == nil then AZP.OnEvent = {} end
-if AZP.OnEvent == nil then AZP.OnEvent = {} end
 
-AZP.VersionControl["EasierGreatVault"] = 5
+AZP.VersionControl["Easier GreatVault"] = 5
 AZP.EasierGreatVault = {}
 
 local EventFrame, UpdateFrame = nil, nil
@@ -15,7 +13,7 @@ local AZPEGVSelfOptionPanel = nil
 function AZP.EasierGreatVault:OnLoadSelf()
     C_ChatInfo.RegisterAddonMessagePrefix("AZPVERSIONS")
     EventFrame = CreateFrame("Frame")
-    EventFrame:SetScript("OnEvent", AZP.OnEvent.EasierGreatVault)
+    EventFrame:SetScript("OnEvent", function(...) AZP.EasierGreatVault:OnEvent(...) end)
     EventFrame:RegisterEvent("ADDON_LOADED")
     EventFrame:RegisterEvent("CHAT_MSG_ADDON")
 
@@ -65,9 +63,9 @@ end
 
 function AZP.EasierGreatVault:OnLoadCore()
     AZP.Core.AddOns.EGV.MainFrame:SetSize(150, 50)
-    AZP.Core:RegisterEvents("ADDON_LOADED", function(...) AZP.EasierGreatVault:eventOnOtherAddonLoaded(...) end)
-    AZP.OptionsPanels:RemovePanel("Easier Great Vault")
-    AZP.OptionsPanels:Generic("Easier Great Vault", optionHeader, function(frame)
+    AZP.Core:RegisterEvents("ADDON_LOADED", AZP.EasierGreatVault.eventOnOtherAddonLoaded)
+    AZP.OptionsPanels:RemovePanel("Easier GreatVault")
+    AZP.OptionsPanels:Generic("Easier GreatVault", optionHeader, function(frame)
         AZP.EasierGreatVault:FillOptionsPanel(frame)
     end)
 end
@@ -113,7 +111,7 @@ function AZP.EasierGreatVault:DelayedExecution(delayTime, delayedFunction)
 end
 
 function AZP.EasierGreatVault:ShareVersion()    -- Change DelayedExecution to native WoW Function.
-    local versionString = string.format("|TT:%d|", AZP.VersionControl["EasierGreatVault"])
+    local versionString = string.format("|EGV:%d|", AZP.VersionControl["Easier GreatVault"])
     AZP.EasierGreatVault:DelayedExecution(10, function() 
         if IsInGroup() then
             if IsInRaid() then
@@ -129,7 +127,8 @@ function AZP.EasierGreatVault:ShareVersion()    -- Change DelayedExecution to na
 end
 
 function AZP.EasierGreatVault:ReceiveVersion(version)
-    if version > AZP.VersionControl["EasierGreatVault"] then
+
+    if version > AZP.VersionControl["Easier GreatVault"] then
         if (not HaveShowedUpdateNotification) then
             HaveShowedUpdateNotification = true
             UpdateFrame:Show()
@@ -137,7 +136,7 @@ function AZP.EasierGreatVault:ReceiveVersion(version)
                 "Please download the new version through the CurseForge app.\n" ..
                 "Or use the CurseForge website to download it manually!\n\n" .. 
                 "Newer Version: v" .. version .. "\n" .. 
-                "Your version: v" .. AZP.VersionControl["EasierGreatVault"]
+                "Your version: v" .. AZP.VersionControl["Easier GreatVault"]
             )
         end
     end
@@ -156,11 +155,14 @@ function AZP.EasierGreatVault:GetSpecificAddonVersion(versionString, addonWanted
     end
 end
 
-function AZP.OnEvent:EasierGreatVault(self, event, ...)
+function AZP.EasierGreatVault:OnEvent(self, event, ...)
     if event == "CHAT_MSG_ADDON" then
         local prefix, payload, _, sender = ...
         if prefix == "AZPVERSIONS" then
-            AZP.EasierGreatVault:ReceiveVersion(AZP.EasierGreatVault:GetSpecificAddonVersion(payload, "EGV"))
+            local version = AZP.EasierGreatVault:GetSpecificAddonVersion(payload, "EGV")
+            if version ~= nil then
+                AZP.EasierGreatVault:ReceiveVersion()
+            end
         end
     elseif event == "ADDON_LOADED" then
         AZP.EasierGreatVault.eventAddonLoaded(...)
