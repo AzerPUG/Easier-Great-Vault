@@ -161,7 +161,7 @@ function AZP.EasierGreatVault:OnEvent(self, event, ...)
         if prefix == "AZPVERSIONS" then
             local version = AZP.EasierGreatVault:GetSpecificAddonVersion(payload, "EGV")
             if version ~= nil then
-                AZP.EasierGreatVault:ReceiveVersion()
+                AZP.EasierGreatVault:ReceiveVersion(version)
             end
         end
     elseif event == "ADDON_LOADED" then
