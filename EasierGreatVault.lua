@@ -115,15 +115,19 @@ end
 function AZP.EasierGreatVault:ShareVersion()    -- Change DelayedExecution to native WoW Function.
     local versionString = string.format("|EGV:%d|", AZP.VersionControl["Easier GreatVault"])
     AZP.EasierGreatVault:DelayedExecution(10, function()
-        if IsInGroup() then
-            if IsInRaid() then
-                C_ChatInfo.SendAddonMessage("AZPVERSIONS", versionString ,"RAID", 1)
-            else
-                C_ChatInfo.SendAddonMessage("AZPVERSIONS", versionString ,"PARTY", 1)
+        if UnitInBattleground("player") ~= nil then
+            -- BG stuff?
+        else
+            if IsInGroup() then
+                if IsInRaid() then
+                    C_ChatInfo.SendAddonMessage("AZPVERSIONS", versionString ,"RAID", 1)
+                else
+                    C_ChatInfo.SendAddonMessage("AZPVERSIONS", versionString ,"PARTY", 1)
+                end
             end
-        end
-        if IsInGuild() then
-            C_ChatInfo.SendAddonMessage("AZPVERSIONS", versionString ,"GUILD", 1)
+            if IsInGuild() then
+                C_ChatInfo.SendAddonMessage("AZPVERSIONS", versionString ,"GUILD", 1)
+            end
         end
     end)
 end
