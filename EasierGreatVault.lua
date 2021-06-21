@@ -3,7 +3,8 @@ if AZP.VersionControl == nil then AZP.VersionControl = {} end
 if AZP.OnLoad == nil then AZP.OnLoad = {} end
 
 AZP.VersionControl["Easier GreatVault"] = 8
-AZP.EasierGreatVault = {}
+if AZP.EasierGreatVault == nil then AZP.EasierGreatVault = {} end
+if AZP.EasierGreatVault.Events == nil then AZP.EasierGreatVault.Events = {} end
 
 local EventFrame, UpdateFrame = nil, nil
 local HaveShowedUpdateNotification = false
@@ -65,14 +66,14 @@ end
 
 function AZP.EasierGreatVault:OnLoadCore()
     AZP.Core.AddOns.EGV.MainFrame:SetSize(150, 50)
-    AZP.Core:RegisterEvents("ADDON_LOADED", function (...) AZP.EasierGreatVault:eventAddonLoaded(...) end)
+    AZP.Core:RegisterEvents("ADDON_LOADED", function (...) AZP.EasierGreatVault.Events:AddonLoaded(...) end)
     AZP.OptionsPanels:RemovePanel("Easier GreatVault")
     AZP.OptionsPanels:Generic("Easier GreatVault", optionHeader, function(frame)
         AZP.EasierGreatVault:FillOptionsPanel(frame)
     end)
 end
 
-function AZP.EasierGreatVault:eventAddonLoaded(addon)
+function AZP.EasierGreatVault.Events:AddonLoaded(addon)
     if addon == "Blizzard_GarrisonUI" or IsAddOnLoaded("Blizzard_GarrisonUI") then
         if GarrisonLandingPage ~= nil and GarrisonLandingPage.AZPGVCovButton == nil then
             GarrisonLandingPage.AZPGVCovButton = CreateFrame("Button", nil, GarrisonLandingPage, "UIPanelButtonTemplate")
@@ -171,7 +172,7 @@ function AZP.EasierGreatVault:OnEvent(self, event, ...)
             end
         end
     elseif event == "ADDON_LOADED" then
-        AZP.EasierGreatVault.eventAddonLoaded(...)
+        AZP.EasierGreatVault.Events:AddonLoaded(...)
     elseif event == "GROUP_ROSTER_UPDATE" then
         AZP.EasierGreatVault:ShareVersion()
     end
