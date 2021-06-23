@@ -1,16 +1,19 @@
 # AzerPUG Links
 [![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/Website%20Panel%20Small.png "")](http://www.azerpug.com "") 
-[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/Discord%20Panel%20Small.png "")](http://www.azerpug.com/discord "")  
-[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/Twitch%20Panel%20Small.png "")](http://www.twitch.tv/AzerPUG "") 
-[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/YouTube%20Panel%20Small.png "")](https://www.youtube.com/channel/UClMRIcLGE_0SODpOrP8AVlQ "")  
-[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/CurseForge%20Panel%20Small.png "")](https://www.curseforge.com/members/azerpug/projects "") 
-[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/GitHub%20Panel%20Small.png "")](https://github.com/AzerPUG "")  
-[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/Merch%20Panel%20Small.png "")](https://shop.spreadshirt.net/azerpug/ "") 
-[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/Fiverr%20Panel%20Small.png "")](https://www.fiverr.com/arcodielhof "")  
-[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/Instagram%20Panel%20Small.png "")](https://www.instagram.com/azerpug/ "") 
-[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/Twitter%20Panel%20Small.png "")](https://twitter.com/azerpug "")  
-[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/Patreon%20Panel%20Small.png "")](https://www.patreon.com/AzerPUG "") 
-[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/PayPal%20Panel%20Small.png "")](https://www.paypal.com/donate?hosted_button_id=V4M8A5PPJWZLE "")
+[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/Discord%20Panel%20Small.png "")](http://www.azerpug.com/discord "") 
+[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/Twitch%20Panel%20Small.png "")](http://www.azerpug.com/twitch "")  
+
+[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/CurseForge%20Panel%20Small.png "")](http://www.azerpug.com/curseforge "") 
+[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/GitHub%20Panel%20Small.png "")](http://www.azerpug.com/github "") 
+[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/Fiverr%20Panel%20Small.png "")](http://www.azerpug.com/fiverr "")  
+
+[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/Merch%20Panel%20Small.png "")](http://www.azerpug.com/merch "") 
+[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/Patreon%20Panel%20Small.png "")](http://www.azerpug.com/patreon "") 
+[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/PayPal%20Panel%20Small.png "")](http://www.azerpug.com/paypal "")  
+
+[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/YouTube%20Panel%20Small.png "")](http://www.azerpug.com/youtube "") 
+[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/Twitter%20Panel%20Small.png "")](http://www.azerpug.com/twitter "") 
+[![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/Instagram%20Panel%20Small.png "")](http://www.azerpug.com/instagram "") 
 
 # Description and Features
 AzerPUG's Easier Great Vault adds the ability to open the Great Vault from anywhere. Althought it is impossible for an addon to claim an item from the great vault, unless you are located right next to it, you can check a lot of information about how much M+, Raid Bosses or PvP you have done for the week. The button to open the Great Vault is located in the Covenant Window!
