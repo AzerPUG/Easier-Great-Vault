@@ -16,7 +16,18 @@
 [![](https://github.com/AzerPUG/AZP-Files/raw/main/Panels/Instagram%20Panel%20Small.png "")](http://www.azerpug.com/instagram "") 
 
 # Description and Features
-AzerPUG's Easier Great Vault adds the ability to open the Great Vault from anywhere. Althought it is impossible for an addon to claim an item from the great vault, unless you are located right next to it, you can check a lot of information about how much M+, Raid Bosses or PvP you have done for the week. The button to open the Great Vault is located in the Covenant Window!
+AzerPUG's Easier Great Vault adds the ability to open the Great Vault from anywhere. Althought it is impossible for an addon to claim an item from the great vault, unless you are located right next to it, you can check a lot of information about how much M+, Raid Bosses or PvP you have done for the week. The button to open the Great Vault is located in the Covenant Window! 
+
+# Optional Core
+All AzerPUG AddOns are stand-alone and as lightweight as possible.  
+However, some very resource intensive things with AddOns are really nice to have.  
+In order to provide these extra things, like optimization or combining the AddOns into one bigger one, we have an optinal, combined AddOn.  
+Anyone who uses several of our AddOns, is strongly suggested to use the [AzerPUG's Core](https://www.curseforge.com/wow/addons/azerpugs-core) as well.  
+This Core AddOn will do several things that are considered an imporvement by most people:
+- Speed up loading times
+- Register events more efficiently.
+- Deal with all the event handling for all AzerPUG AddOns.
+- Deal with all the version control for all AzerPUG AddOns.  
 
 # Bugs, Errors, Glitches and Requests.
 If you find any of the above, please do not hesitate to create a GitHub Issue here: https://github.com/AzerPUG/Easier-Great-Vault/issues  
