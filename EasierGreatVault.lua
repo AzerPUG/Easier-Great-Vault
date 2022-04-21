@@ -2,7 +2,7 @@ if AZP == nil then AZP = {} end
 if AZP.VersionControl == nil then AZP.VersionControl = {} end
 if AZP.OnLoad == nil then AZP.OnLoad = {} end
 
-AZP.VersionControl["Easier GreatVault"] = 12
+AZP.VersionControl["Easier GreatVault"] = 13
 if AZP.EasierGreatVault == nil then AZP.EasierGreatVault = {} end
 if AZP.EasierGreatVault.Events == nil then AZP.EasierGreatVault.Events = {} end
 
@@ -10,6 +10,10 @@ local EventFrame, UpdateFrame = nil, nil
 local HaveShowedUpdateNotification = false
 local optionHeader = "|cFF00FFFFEasier GreatVault|r"
 local AZPEGVSelfOptionPanel = nil
+
+function AZP.EasierGreatVault.OnLoadBoth()
+    UIPanelWindows["WeeklyRewardsFrame"] = {area = "left", pushable = 2}
+end
 
 function AZP.EasierGreatVault:OnLoadSelf()
     C_ChatInfo.RegisterAddonMessagePrefix("AZPVERSIONS")
@@ -62,6 +66,8 @@ function AZP.EasierGreatVault:OnLoadSelf()
         "Twitch: www.twitch.tv/azerpug\n|r"
     )
     AZP.EasierGreatVault.FillOptionsPanel(AZPEGVSelfOptionPanel)
+
+    AZP.EasierGreatVault.OnLoadBoth()
 end
 
 function AZP.EasierGreatVault:OnLoadCore()
@@ -71,6 +77,8 @@ function AZP.EasierGreatVault:OnLoadCore()
     AZP.OptionsPanels:Generic("Easier GreatVault", optionHeader, function(frame)
         AZP.EasierGreatVault:FillOptionsPanel(frame)
     end)
+
+    AZP.EasierGreatVault.OnLoadBoth()
 end
 
 function AZP.EasierGreatVault.Events:AddonLoaded(addon)
