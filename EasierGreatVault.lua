@@ -2,7 +2,7 @@ if AZP == nil then AZP = {} end
 if AZP.VersionControl == nil then AZP.VersionControl = {} end
 if AZP.OnLoad == nil then AZP.OnLoad = {} end
 
-AZP.VersionControl["Easier GreatVault"] = 13
+AZP.VersionControl["Easier GreatVault"] = 14
 if AZP.EasierGreatVault == nil then AZP.EasierGreatVault = {} end
 if AZP.EasierGreatVault.Events == nil then AZP.EasierGreatVault.Events = {} end
 
